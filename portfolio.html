@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Kyle Villaver — Video Editor</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css"/>
+<link rel="stylesheet" href="css/styles.css"/>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --accent: #292996;
+  --dark: #141414;
+  --mid: #1e1e1e;
+  --surface: #252525;
+  --border: rgba(255,255,255,0.08);
+  --text: #f0ede8;
+  --muted: #888680;
+  --tag-bg: rgba(226,75,74,0.12);
+  --tag-color: #f09595;
+}
+
+body {
+  background: var(--dark);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  line-height: 1.65;
+}
+
+.page { max-width: 860px; margin: 0 auto; padding: 0 24px 80px; }
+
+/* HERO */
+.hero {
+  padding: 72px 0 56px;
+  border-bottom: 0.5px solid var(--border);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 32px;
+  align-items: end;
+}
+.hero-eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-family: 'Syne', sans-serif;
+  margin-bottom: 16px;
+}
+.hero-name {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(38px, 6vw, 64px);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+.hero-name span { color: var(--accent); }
+.hero-tagline {
+  margin-top: 16px;
+  font-size: 16px;
+  color: var(--muted);
+  max-width: 420px;
+  font-weight: 300;
+  font-style: italic;
+}
+.hero-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 28px;
+  padding: 12px 22px;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 4px;
+  text-decoration: none;
+  font-family: 'Syne', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  transition: opacity 0.2s;
+}
+.hero-cta:hover { opacity: 0.85; }
+.hero-badge {
+  background: var(--surface);
+  border: 0.5px solid var(--border);
+  border-radius: 12px;
+  padding: 20px 22px;
+  text-align: center;
+  min-width: 120px;
+}
+.hero-badge .num {
+  font-family: 'Syne', sans-serif;
+  font-size: 36px;
+  font-weight: 800;
+  color: var(--accent);
+  display: block;
+  line-height: 1;
+}
+.hero-badge .label {
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-top: 6px;
+  display: block;
+}
+
+/* SECTIONS */
+.section { margin-top: 64px; }
+.section-label {
+  font-family: 'Syne', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 28px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.section-label::after {
+  content: '';
+  flex: 1;
+  height: 0.5px;
+  background: var(--border);
+}
+
+/* SKILLS */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 12px;
+}
+.skill-card {
+  background: var(--surface);
+  border: 0.5px solid var(--border);
+  border-radius: 10px;
+  padding: 20px;
+}
+.skill-icon { font-size: 22px; margin-bottom: 10px; color: var(--accent); }
+.skill-title { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+.skill-desc { font-size: 12px; color: var(--muted); font-weight: 300; line-height: 1.55; }
+
+/* PROJECTS */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+}
+.project-card {
+  background: var(--surface);
+  border: 0.5px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.project-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+.project-thumb {
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.project-thumb.t1 { background: linear-gradient(135deg, #1a0a0a 0%, #3d1010 100%); }
+.project-thumb.t2 { background: linear-gradient(135deg, #0a0a1a 0%, #10103d 100%); }
+.project-thumb.t3 { background: linear-gradient(135deg, #0a1a0a 0%, #103d10 100%); }
+.project-thumb.t4 { background: linear-gradient(135deg, #1a1a0a 0%, #3d3d10 100%); }
+.play-icon {
+  width: 48px; height: 48px; border-radius: 50%;
+  background: rgba(255,255,255,0.08);
+  border: 1.5px solid rgba(255,255,255,0.2);
+  display: flex; align-items: center; justify-content: center;
+  color: rgba(255,255,255,0.7); font-size: 20px;
+}
+.project-type-badge {
+  position: absolute; top: 10px; left: 10px;
+  font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 3px 8px;
+  background: rgba(0,0,0,0.5); color: var(--muted);
+  border-radius: 3px; border: 0.5px solid var(--border);
+}
+.project-body { padding: 16px 18px 20px; }
+.project-title { font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+.project-desc { font-size: 12px; color: var(--muted); font-weight: 300; line-height: 1.55; margin-bottom: 12px; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.tag {
+  font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase;
+  padding: 3px 8px; background: var(--tag-bg); color: var(--tag-color); border-radius: 3px;
+}
+
+/* ABOUT */
+.about-block { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: start; }
+.about-text { font-size: 15px; color: var(--muted); font-weight: 300; line-height: 1.75; }
+.about-text strong { color: var(--text); font-weight: 400; }
+.tools-label { font-family: 'Syne', sans-serif; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+.tools-list { display: flex; flex-wrap: wrap; gap: 8px; }
+.tool-pill {
+  font-size: 12px; padding: 6px 14px;
+  border: 0.5px solid var(--border); border-radius: 20px;
+  color: var(--muted); background: var(--surface);
+}
+
+/* CONTACT */
+.contact-bar {
+  margin-top: 64px; border-top: 0.5px solid var(--border); padding-top: 48px;
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px;
+}
+.contact-cta-text { font-family: 'Syne', sans-serif; font-size: 24px; font-weight: 800; line-height: 1.2; }
+.contact-cta-text span { color: var(--accent); }
+.contact-links { display: flex; gap: 12px; flex-wrap: wrap; }
+.contact-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 10px 18px; border: 0.5px solid var(--border); border-radius: 6px;
+  color: var(--muted); text-decoration: none; font-size: 13px;
+  background: var(--surface); transition: border-color 0.2s, color 0.2s;
+}
+.contact-link:hover { border-color: var(--accent); color: var(--text); }
+.contact-link i { font-size: 16px; }
+
+@media (max-width: 560px) {
+  .hero { grid-template-columns: 1fr; }
+  .hero-badge { display: none; }
+  .about-block { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <section class="hero">
+    <div>
+      <p class="hero-eyebrow">Video Editor · Freelance</p>
+      <h1 class="hero-name">Kyle Villaver<br><span>Here.</span></h1>
+      <p class="hero-tagline">I turn raw footage into stories that people actually feel.</p>
+      <a class="hero-cta" href="https://mail.google.com/mail/?view=cm&fs=1&to=09lilkyle56@gmail.com" target="_blank" rel="noopener">
+        <i class="ti ti-bolt"></i> Get in touch
+      </a>
+    </div>
+    <div>
+      <div class="hero-badge">
+        <span class="num">8+</span>
+        <span class="label">Projects done</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <p class="section-label">What I do</p>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="skill-icon"><i class="ti ti-video"></i></div>
+        <p class="skill-title">Video Editing</p>
+        <p class="skill-desc">Cuts, pacing, transitions, color grading — from raw clips to polished final output.</p>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon"><i class="ti ti-speakerphone"></i></div>
+        <p class="skill-title">Social Media Reels</p>
+        <p class="skill-desc">Short-form edits optimized for Instagram, TikTok, and YouTube Shorts.</p>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon"><i class="ti ti-brand-youtube"></i></div>
+        <p class="skill-title">YouTube Videos</p>
+        <p class="skill-desc">Long-form content editing with captions, B-roll, lower thirds &amp; sound design.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <p class="section-label">Projects</p>
+    <div class="projects-grid">
+      <div class="project-card">
+        <div class="project-thumb t1">
+          <span class="project-type-badge">Reel</span>
+          <video controls muted playsinline webkit-playsinline preload="metadata" style="width:100%; height:100%; object-fit:cover; display:block;">
+            <source src="assets/videos/mount-lanaya.mp4" type="video/mp4" />
+            Your browser does not support video.
+          </video>
+        </div>
+        <div class="project-body">
+          <p class="project-title">Mount Lanaya-Cenimatic</p>
+          <p class="project-desc">A cinematic travel edit featuring smooth transitions, color grading, and immersive visuals that showcase the beauty of Mount Lanaya.</p>
+          <div class="tags"><span class="tag">Premiere Pro</span><span class="tag">Cinematic</span><span class="tag">Color Grade</span></div>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-thumb t1">
+          <span class="project-type-badge">TikTok Edit</span>
+          <video controls muted playsinline webkit-playsinline preload="metadata" style="width:100%; height:100%; object-fit:cover; display:block;">
+            <source src="assets/videos/cowboy-bebop.mp4" type="video/mp4" />
+            Your browser does not support video.
+          </video>
+        </div>
+        <div class="project-body">
+          <p class="project-title">Cowboy Bepop Edit</p>
+          <p class="project-desc">A fast-paced anime edit featuring dynamic transitions, motion graphics, and beat-synced effects inspired by Cowboy Bebop</p>
+          <div class="tags"><span class="tag">Premiere Pro</span><span class="tag">Sound Mix</span></div>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-thumb t2">
+          <span class="project-type-badge">TikTok Edit</span>
+          <video controls muted playsinline webkit-playsinline preload="metadata" style="width:100%; height:100%; object-fit:cover; display:block;">
+            <source src="assets/videos/john-wick.mp4" type="video/mp4" />
+            Your browser does not support video.
+          </video>
+        </div>
+        <div class="project-body">
+          <p class="project-title">John Wick Edit</p>
+          <p class="project-desc">A cinematic John Wick edit synced to “Monster” by Kanye West, combining intense pacing, dark tone, and impactful action-driven transitions.</p>
+          <div class="tags"><span class="tag">Premiere Pro</span><span class="tag">Music Sync</span><span class="tag">Caption</span></div>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-thumb t4">
+          <span class="project-type-badge">TikTok Edit</span>
+          <video controls muted playsinline webkit-playsinline preload="metadata" style="width:100%; height:100%; object-fit:cover; display:block;">
+            <source src="assets/videos/haikyu.mp4" type="video/mp4" />
+            Your browser does not support video.
+          </video>
+        </div>
+        <div class="project-body">
+          <p class="project-title">Haikyu Edit</p>
+          <p class="project-desc">A high-energy Haikyuu!! edit synced to “The Days (Notion Remix)” by Chrystal, featuring slowed-paced transitions and dynamic motion effects that capture the intensity of volleyball action.</p>
+          <div class="tags"><span class="tag">Premiere Pro</span><span class="tag">Music Sync</span><span class="tag">Subtitle</span></div>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-thumb t3">
+          <span class="project-type-badge">TikTok Edit</span>
+          <video controls muted playsinline webkit-playsinline preload="metadata" style="width:100%; height:100%; object-fit:cover; display:block;">
+            <source src="assets/videos/vinland-saga.mp4" type="video/mp4" />
+            Your browser does not support video.
+          </video>
+        </div>
+        <div class="project-body">
+          <p class="project-title">Vinland Saga Edit</p>
+          <p class="project-desc">A cinematic Vinland Saga edit synced to “Remedy” by RJ Pasin, blending emotional pacing, dark visuals, and powerful transitions to highlight its intense storytelling.</p>
+          <div class="tags"><span class="tag">Premiere Pro</span><span class="tag">Color Grade</span><span class="tag">Music Sync</span></div>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-thumb t2">
+          <span class="project-type-badge">TikTok Edit</span>
+          <video controls muted playsinline webkit-playsinline preload="metadata" style="width:100%; height:100%; object-fit:cover; display:block;">
+            <source src="assets/videos/gotg.mp4" type="video/mp4" />
+            Your browser does not support video.
+          </video>
+        </div>
+        <div class="project-body">
+          <p class="project-title">GOTG Edit</p>
+          <p class="project-desc">A vibrant Guardians of the Galaxy edit synced to “Come and Get Your Love,” featuring upbeat pacing, colorful visuals, and smooth transitions that capture its fun, cosmic energy.</p>
+          <div class="tags"><span class="tag">Premiere Pro</span><span class="tag">Reel</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <p class="section-label">About me</p>
+    <div class="about-block">
+      <p class="about-text">
+       I’m Kyle Villaver, a <strong>freelance video editor and BS Architecture student</strong>. I combine structural precision with creative storytelling to turn raw footage into compelling visual content.
+
+My architectural training gives me a unique edge a sharp eye for composition, pacing, and visual harmony, which I apply directly to the editing timeline. From seamless transitions to precise color grading, I build videos that captivate audiences and look highly professional.
+
+Whether you need dynamic social media content or cinematic promos, I deliver high-quality results on time. Let’s collaborate and bring your vision to life!
+      </p>
+      <div>
+        <p class="tools-label">Tools I use</p>
+        <div class="tools-list">
+          <span class="tool-pill">Premiere Pro</span>
+          <span class="tool-pill">After Effects</span>
+          <span class="tool-pill">Canva</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="contact-bar">
+    <p class="contact-cta-text">Let's work<br>together<span>.</span></p>
+    <div class="contact-links">
+      <a class="contact-link" href="https://mail.google.com/mail/?view=cm&fs=1&to=09lilkyle56@gmail.com" target="_blank" rel="noopener"><i class="ti ti-mail"></i> Email me</a> 
+      <a class="contact-link" href="https://www.upwork.com/freelancers/~017234579032ca98c2?mp_source=share" target="_blank" rel="noopener"><i class="ti ti-brand-upwork"></i> Upwork</a>
+      <a class="contact-link" href="https://www.instagram.com/kyle.villaver.37/" target="_blank"><i class="ti ti-brand-instagram"></i> Instagram</a>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
